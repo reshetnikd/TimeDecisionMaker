@@ -17,11 +17,12 @@ class RDTimeDecisionMaker: NSObject {
     /// - Returns: array of available time slots, empty array if none found
     func suggestAppointments(organizerICS:String,
                              attendeeICS:String,
+                             date: String,
                              duration:TimeInterval) -> [DateInterval] {
-        var appointmentsInterval:Array<DateInterval> = []
+        var appointmentsInterval = [DateInterval]()
         
-        let extractedTimeA = extractTimeFromEvent(from: organizerICS)
-        let extractedTimeB = extractTimeFromEvent(from: attendeeICS)
+        let extractedTimeA = extractTimeFromEvent(from: organizerICS, for: date)
+        let extractedTimeB = extractTimeFromEvent(from: attendeeICS, for: date)
         let extractDateIntervalA = createDayInterval(extractedTimeA)
         let extractDateIntervalB = createDayInterval(extractedTimeB)
         let freeTimeIntervalA = calculateFreeTimeInterval(from: extractDateIntervalA)
@@ -37,6 +38,11 @@ class RDTimeDecisionMaker: NSObject {
             }
         }
         return appointmentsInterval
+    }
+    
+    // Calculate free time slots for person
+    func personAvailability(ICS:String, date:String) -> [DateInterval] {
+        return calculateFreeTimeInterval(from: createDayInterval(extractTimeFromEvent(from: ICS, for: date)))
     }
     
     // Read file row by row
@@ -60,20 +66,27 @@ class RDTimeDecisionMaker: NSObject {
     }
     
     // Extract time value from file by parametrs (DTSTART, DTEND) and return array of dates
-    func extractTimeFromEvent(from file: String) -> [Date] {
+    func extractTimeFromEvent(from file: String, for date: String) -> [Date] {
         let contents = readFile(file)
-        let formater = DateFormatter()
-        formater.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
         var index = 1
         var extractedTime = [Date]()
         for row in contents {
-            if let searchStart = searchForEvent("DTSTART:", in: row) {
-                extractedTime.append(formater.date(from: searchStart)!)
+            if let searchStart = searchForEvent("DTSTART:" + date, in: row) {
+                extractedTime.append(formatter.date(from: searchStart)!)
             }
-            if let searchEnd = searchForEvent("DTEND:", in: row) {
-                extractedTime.insert(formater.date(from: searchEnd)!, at: index)
+            if let searchEnd = searchForEvent("DTEND:" + date, in: row) {
+                extractedTime.insert(formatter.date(from: searchEnd)!, at: index)
                 index += 2
             }
+        }
+        if extractedTime.count == 0 {
+            formatter.dateFormat = "yyyyMMdd"
+            let date = formatter.date(from: date)
+            extractedTime.append(Date(timeInterval: 24*60*60, since: date!))
+            extractedTime.append(Date(timeInterval: 48*60*60, since: date!))
         }
         return extractedTime
     }
@@ -92,20 +105,24 @@ class RDTimeDecisionMaker: NSObject {
     
     // Calculate free time slots for a chosen date
     func calculateFreeTimeInterval(from interval: [DateInterval]) -> [DateInterval] {
-        let formater = DateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
-        formater.timeZone = TimeZone.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
         var freeTimeInterval = [DateInterval]()
-        var allDayTimeInterval = DateInterval(start: formater.date(from: interval[0].description.components(separatedBy: " ").first!)!, duration: 24*3600)
-        var tempTimeInterval = allDayTimeInterval
-        for i in 0..<interval.count {
-            tempTimeInterval.end = interval[i].start
+        if interval.count == 1 {
+            freeTimeInterval.append(interval.first!)
+        } else {
+            var allDayTimeInterval = DateInterval(start: formatter.date(from: interval[0].description.components(separatedBy: " ").first!)!, duration: 24*3600)
+            var tempTimeInterval = allDayTimeInterval
+            for i in 0..<interval.count {
+                tempTimeInterval.end = interval[i].start
+                freeTimeInterval.append(tempTimeInterval)
+                tempTimeInterval.start = interval[i].end
+            }
+            allDayTimeInterval = DateInterval(start: formatter.date(from: interval[interval.count-1].description.components(separatedBy: " ").first!)!, duration: 24*3600)
+            tempTimeInterval.end = allDayTimeInterval.end
             freeTimeInterval.append(tempTimeInterval)
-            tempTimeInterval.start = interval[i].end
         }
-        allDayTimeInterval = DateInterval(start: formater.date(from: interval[interval.count-1].description.components(separatedBy: " ").first!)!, duration: 24*3600)
-        tempTimeInterval.end = allDayTimeInterval.end
-        freeTimeInterval.append(tempTimeInterval)
         return freeTimeInterval
     }
+    
 }

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351F65B322A825CC000E3347 /* StepCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65AF22A825CC000E3347 /* StepCollectionViewFlowLayout.swift */; };
+		351F65B422A825CC000E3347 /* FullDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65B022A825CC000E3347 /* FullDateCollectionViewCell.swift */; };
+		351F65B522A825CC000E3347 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65B122A825CC000E3347 /* DateTimePicker.swift */; };
+		351F65B622A825CC000E3347 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65B222A825CC000E3347 /* DateCollectionViewCell.swift */; };
+		351F65BC22A8290F000E3347 /* TableViewAppointmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65BB22A8290F000E3347 /* TableViewAppointmentCell.swift */; };
+		351F65BE22A82938000E3347 /* TableViewAvailabilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F65BD22A82938000E3347 /* TableViewAvailabilityCell.swift */; };
 		748F59A42270681B00B88B7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748F59A32270681B00B88B7D /* AppDelegate.swift */; };
 		748F59A62270681B00B88B7D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748F59A52270681B00B88B7D /* ViewController.swift */; };
 		748F59A92270681B00B88B7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 748F59A72270681B00B88B7D /* Main.storyboard */; };
@@ -32,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		351F65AF22A825CC000E3347 /* StepCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		351F65B022A825CC000E3347 /* FullDateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		351F65B122A825CC000E3347 /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
+		351F65B222A825CC000E3347 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		351F65BB22A8290F000E3347 /* TableViewAppointmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAppointmentCell.swift; sourceTree = "<group>"; };
+		351F65BD22A82938000E3347 /* TableViewAvailabilityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAvailabilityCell.swift; sourceTree = "<group>"; };
 		748F59A02270681B00B88B7D /* TimeDecisionMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeDecisionMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		748F59A32270681B00B88B7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		748F59A52270681B00B88B7D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +77,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		351F65AE22A825CC000E3347 /* DateTimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				351F65AF22A825CC000E3347 /* StepCollectionViewFlowLayout.swift */,
+				351F65B022A825CC000E3347 /* FullDateCollectionViewCell.swift */,
+				351F65B122A825CC000E3347 /* DateTimePicker.swift */,
+				351F65B222A825CC000E3347 /* DateCollectionViewCell.swift */,
+			);
+			path = DateTimePicker;
+			sourceTree = "<group>";
+		};
 		748F59972270681B00B88B7D = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +109,7 @@
 		748F59A22270681B00B88B7D /* TimeDecisionMaker */ = {
 			isa = PBXGroup;
 			children = (
+				351F65AE22A825CC000E3347 /* DateTimePicker */,
 				748F59CC22706E9400B88B7D /* Appointments */,
 				748F59A32270681B00B88B7D /* AppDelegate.swift */,
 				748F59C62270687C00B88B7D /* RDTimeDecisionMaker.swift */,
@@ -118,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				748F59A52270681B00B88B7D /* ViewController.swift */,
+				351F65BB22A8290F000E3347 /* TableViewAppointmentCell.swift */,
+				351F65BD22A82938000E3347 /* TableViewAvailabilityCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -244,9 +270,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				351F65B522A825CC000E3347 /* DateTimePicker.swift in Sources */,
 				748F59C72270687C00B88B7D /* RDTimeDecisionMaker.swift in Sources */,
 				748F59A62270681B00B88B7D /* ViewController.swift in Sources */,
+				351F65BC22A8290F000E3347 /* TableViewAppointmentCell.swift in Sources */,
+				351F65B422A825CC000E3347 /* FullDateCollectionViewCell.swift in Sources */,
+				351F65BE22A82938000E3347 /* TableViewAvailabilityCell.swift in Sources */,
+				351F65B322A825CC000E3347 /* StepCollectionViewFlowLayout.swift in Sources */,
 				748F59A42270681B00B88B7D /* AppDelegate.swift in Sources */,
+				351F65B622A825CC000E3347 /* DateCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
