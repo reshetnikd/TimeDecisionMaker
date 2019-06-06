@@ -85,7 +85,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
         }
         return UITableViewCell()
-        
     }
     
     // Method to run when table view cell is tapped
@@ -104,7 +103,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         availabilityView.delegate = self
         availabilityView.dataSource = self
         appointmentView.rowHeight = UITableView.automaticDimension
-        appointmentView.estimatedRowHeight = 88.0
     }
     
     @IBAction func showDateTimePicker(sender: AnyObject) {
